@@ -1,0 +1,161 @@
+﻿@model List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler>
+@{
+    ViewBag.Title = "Baslangıc";
+    Layout = "~/Views/Shared/_AnaPanel.cshtml";
+}
+
+
+
+
+
+@section EnYakinEtkinlikler
+{
+    <div class="row animate-box">
+        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+            <h2>İlgi Alanlarınıza Göre Etkinlikler</h2>
+            <p>İlgi alanınıza göre katılmak istediğiniz etkinliğe kayıt oluşturmayı unutmayın.Orada görüşmek üzere :)</p>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (ViewBag.UygunEtkinlikler != null && ((List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler>)ViewBag.UygunEtkinlikler).Any())
+        {
+            foreach (var etkinlik in (List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler>)ViewBag.UygunEtkinlikler)
+            {
+                <div class="col-lg-4 col-md-4">
+                    <div class="fh5co-blog animate-box">
+                        <!-- Arka planda resim olacak, kategoriye göre dinamik olarak belirleniyor -->
+                        <a href="#" class="blog-img-holder" style="background-image: url('@($"../Pictures/{etkinlik.Kategori.ToLowerInvariant().Replace(" ", "")}.jpg")');"></a>
+                        <div class="blog-text">
+                            <h3><a href="#">@etkinlik.EtkinlikAdi</a></h3>
+                            <span class="posted_on">@etkinlik.Tarih.ToString("MMMM dd, yyyy")</span>
+                            <span class="comment"><a href="#"></a></span>
+                            <p>@etkinlik.Aciklama</p>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+}
+
+
+@section TumEtkinlikler
+{
+    <div class="container">
+        <h2 class="text-center my-4"></h2>
+        <table class="table table-bordered table-striped text-center shadow-lg">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>Etkinlik Adı</th>
+                    <th>Açıklama</th>
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                    <th>Etkinlik Süresi</th>
+                    <th>Kategori</th>
+                    <th>Konum</th>
+                    <th>Katıl</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+
+                    foreach (var etkinlik in Model)
+                    {
+                        var bugun = DateTime.Now;
+                        bool etkinlikAktif = etkinlik.Tarih >= bugun;
+
+                        <tr>
+                            <td>@etkinlik.EtkinlikAdi</td>
+                            <td>@etkinlik.Aciklama</td>
+                            <td>@etkinlik.Tarih.ToString("yyyy-MM-dd")</td>
+                            <td>@etkinlik.Saat</td>
+                            <td>@etkinlik.EtkinlikSuresi</td>
+                            <td>@etkinlik.Kategori</td>
+                            <td>@etkinlik.Konum</td>
+                            <td>
+                                <button class="btn @(etkinlikAktif ? "btn-success" : "btn-secondary")"
+                                        @(etkinlikAktif ? "" : "disabled")
+                                        onclick="katil(@etkinlik.ID)">
+                                    Katıl
+                                </button>
+                            </td>
+                            <td>
+                                <!-- Yol Tarifi Butonu -->
+                                <button class="btn btn-success" onclick="getDirectionss('@etkinlik.Konum')">Yol Tarifi</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-danger">Hiç etkinlik yok.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
+<style>
+    .container {
+        max-width: 80%;
+        margin: auto;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    thead {
+        font-weight: bold;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+    table.table-bordered {
+        border: 2px solid #dee2e6;
+    }
+
+        table.table-bordered th, table.table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+    table.table-striped tbody tr:hover {
+        background-color: #d1e7dd;
+    }
+
+    h2 {
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .btn-success {
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+</style>
+

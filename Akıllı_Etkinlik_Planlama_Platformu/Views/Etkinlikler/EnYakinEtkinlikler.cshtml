@@ -1,0 +1,35 @@
+﻿@model List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler>
+
+@{
+    ViewBag.Title = "EnYakinEtkinlikler";
+    Layout = "~/Views/Shared/_AnaPanel.cshtml";  // Ana panel layout'u
+}
+
+
+@section EnYakinEtkinlikler
+{
+    <div class="row animate-box">
+        <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+            <h2>Yaklaşan Etkinlikler</h2>
+            <p>İlgi alanınıza göre katılmak istediğiniz etkinliğe kayıt oluşturmayı unutmayın.Orada görüşmek üzere :)</p>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var etkinlik in Model)
+        {
+            <div class="col-lg-4 col-md-4">
+                <div class="fh5co-blog animate-box">
+                    <!-- Arka planda resim olacak, kategoriye göre dinamik olarak belirleniyor -->
+                    <a href="#" class="blog-img-holder" style="background-image: url('@($"../Pictures/{etkinlik.Kategori.ToLowerInvariant().Replace(" ", "")}.jpg")');"></a>
+                    <div class="blog-text">
+                        <h3><a href="#">@etkinlik.EtkinlikAdi</a></h3>
+                        <span class="posted_on">@etkinlik.Tarih.ToString("MMMM dd, yyyy")</span>
+                        <span class="comment"><a href="#"></a></span>
+                        <p>@etkinlik.Aciklama</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

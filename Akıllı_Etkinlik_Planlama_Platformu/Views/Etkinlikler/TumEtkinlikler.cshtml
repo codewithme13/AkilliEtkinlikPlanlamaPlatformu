@@ -1,0 +1,93 @@
+﻿@model List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler>
+
+@{
+    ViewBag.Title = "TumEtkinlikler";
+    Layout = "~/Views/Shared/_AnaPanel.cshtml";
+}
+
+@section TumEtkinlikler
+{
+    <div class="container">
+        <h2 class="text-center my-4"></h2>
+        <table class="table table-bordered table-striped text-center shadow-lg">
+            <thead class="bg-primary text-white">
+                <tr>
+                    <th>Etkinlik Adı</th>
+                    <th>Açıklama</th>
+                    <th>Tarih</th>
+                    <th>Saat</th>
+                    <th>Etkinlik Süresi</th>
+                    <th>Kategori</th>
+                    <th>Konum</th>
+                    <th>Katıl</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    var siralanmisEtkinlikler = Model.OrderByDescending(e => e.Tarih).ToList();
+
+                    foreach (var etkinlik in siralanmisEtkinlikler)
+                    {
+                        var bugun = DateTime.Now;
+                        bool etkinlikAktif = etkinlik.Tarih >= bugun;
+
+                <tr>
+                    <td>@etkinlik.EtkinlikAdi</td>
+                    <td>@etkinlik.Aciklama</td>
+                    <td>@etkinlik.Tarih.ToString("yyyy-MM-dd")</td>
+                    <td>@etkinlik.Saat</td>
+                    <td>@etkinlik.EtkinlikSuresi</td>
+                    <td>@etkinlik.Kategori</td>
+                    <td>@etkinlik.Konum</td>
+                    <td>
+                        <button class="btn @(etkinlikAktif ? "btn-success" : "btn-secondary")"
+                                @(etkinlikAktif ? "" : "disabled")>
+                            Katıl
+                        </button>
+                    </td>
+                    <td>
+                        <!-- Yol Tarifi Butonu -->
+                        <button class="btn btn-success" onclick="getDirections('@etkinlik.Konum')">Yol Tarifi</button>
+                    </td>
+                </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="text-center text-danger">Hiç etkinlik yok.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script>
+    function getDirections(destination) {
+        var start = 'Kocaeli Üniversitesi Umuttepe Kampüsü';
+        var end = destination;
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: { lat: 40.7661, lng: 29.9299 }
+        });
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (result, status) {
+            if (status == 'OK') {
+                directionsRenderer.setDirections(result);
+            } else {
+                alert('Yol tarifi alınırken bir hata oluştu: ' + status);
+            }
+        });
+    }
+</script>

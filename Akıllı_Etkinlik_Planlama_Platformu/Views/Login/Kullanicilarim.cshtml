@@ -1,0 +1,64 @@
+﻿@model List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Kullanicilar>
+
+@{
+    ViewBag.Title = "Kullanicilarim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Kullanıcılar</h2>
+<div class="table-container">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Kullanıcı Adı</th>
+                <th>Şifre</th>
+                <th>E-posta</th>
+                <th>Konum</th>
+                <th>İlgi Alanları</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Doğum Tarihi</th>
+                <th>Cinsiyet</th>
+                <th>Telefon Numarası</th>
+                <th>Profil Fotoğrafı</th>
+                <th>Admin Mi?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kullanici in Model)
+            {
+                <tr>
+                    <td>@kullanici.KullaniciAdi</td>
+                    <td>@kullanici.Sifre</td>
+                    <td>@kullanici.Eposta</td>
+                    <td>@kullanici.Konum</td>
+                    <td>@kullanici.IlgiAlanlari</td>
+                    <td>@kullanici.Ad</td>
+                    <td>@kullanici.Soyad</td>
+                    <td>@kullanici.DogumTarihi.ToString("dd/MM/yyyy")</td>
+                    <td>@kullanici.Cinsiyet</td>
+                    <td>@kullanici.TelefonNumarasi</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(kullanici.ProfilFotoDosyaYolu))
+                        {
+                            <img src="@Url.Content(kullanici.ProfilFotoDosyaYolu)" alt="Profil Fotoğrafı" style="width: 50px; height: 50px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <span>Yüklenmedi</span>
+                        }
+                    </td>
+                    <td>@(kullanici.IsAdmin ? "Evet" : "Hayır")</td>
+                    <td><a href="/Login/KullaniciSil/ @kullanici.ID" class="btn btn-danger">Sİl</a></td>
+                    <td><a href="/KullaniciPanel/KullaniciGetir/ @kullanici.ID" class="btn btn-success">Güncelle</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-end mt-3">
+        <a href="/Etkinlikler/EtkinlikGetir" class="btn btn-success">Kullanıcı Ekle</a>
+    </div>
+</div>
+
+

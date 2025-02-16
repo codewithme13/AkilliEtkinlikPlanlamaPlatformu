@@ -1,0 +1,82 @@
+﻿@model Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Kullanicilar
+@{
+    ViewBag.Title = "gerekli";
+    Layout = "~/Views/Shared/_KullanicilarPanelLayout.cshtml";
+}
+@{ var successMessage = TempData["SuccessMessage"];
+                var errorMessage = TempData["ErrorMessage"]; }
+
+@if (successMessage != null)
+{
+<div class="alert alert-success">
+    @successMessage
+</div>}
+
+@if (errorMessage != null)
+{
+<div class="alert alert-danger">
+    @errorMessage
+</div>}
+
+@using (Html.BeginForm("KullaniciProfilGuncelle", "KullaniciPanel", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.KullaniciAdi)
+        @Html.TextBoxFor(x => x.KullaniciAdi, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Sifre)
+        @Html.TextBoxFor(x => x.Sifre, new { @class = "form-control", type = "password" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Eposta)
+        @Html.TextBoxFor(x => x.Eposta, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Ad)
+        @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Soyad)
+        @Html.TextBoxFor(x => x.Soyad, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.TelefonNumarasi)
+        @Html.TextBoxFor(x => x.TelefonNumarasi, new { @class = "form-control" })
+    </div> <!-- İlgi Alanları Dropdown Listesi -->
+    <div class="form-group">
+        @Html.LabelFor(x => x.IlgiAlanlari)
+        @Html.DropDownListFor(x => x.IlgiAlanlari,
+            new SelectList(new[]
+            {
+                "Kış Sporları",
+                "Doğa Yürüyüşü",
+                "Bisiklet Turları",
+                "Koşu Turları",
+                "Kültürel Etkinlikler",
+                "Müzik Etkinlikleri",
+                "Sanat Etkinlikleri",
+                "Spor Etkinlikleri",
+                "Teknolojik Etkinlikler",
+                "Tırmanış Etkinlikleri",
+                "Yemek Etkinlikleri",
+                "Yoga Etkinlikleri"
+            }),
+            "İlgi Alanı Seçiniz",
+            new { @class = "form-control" })
+    </div> <!-- Doğum Tarihi Seçimi -->
+    <div class="form-group">
+        @Html.LabelFor(x => x.DogumTarihi)
+        @Html.TextBoxFor(x => x.DogumTarihi, new { @class = "form-control", type = "date" })
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+    </div>}

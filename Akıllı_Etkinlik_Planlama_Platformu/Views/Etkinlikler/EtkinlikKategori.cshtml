@@ -1,0 +1,148 @@
+﻿@model List<Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler>
+
+@{
+    ViewBag.Title = "Etkinlik Kategorisi";
+    Layout = "~/Views/Shared/_EtkinlikKategoriLayout.cshtml";
+    if (Session["KullaniciAdi"] != null)
+    {
+        <p>Hoş geldiniz, @Session["KullaniciAdi"]</p> }
+            else
+            {
+            <p>Lütfen giriş yapın.</p>
+            }
+
+
+}
+@{var kategori = ViewBag.Kategori as string;  // ViewBag'deki kategori değerini bir değişkene atıyoruz.
+    if (!string.IsNullOrEmpty(kategori))
+    {
+        var kategoriFormatted = kategori.Split(' ')    // Kelimeleri ayırıyoruz.
+                                        .Select(word => char.ToUpper(word[0]) + word.Substring(1).ToLower())  // Her kelimenin ilk harfini büyük yapıyoruz.
+                                        .Aggregate((current, next) => current + " " + next);  // Kelimeleri tekrar birleştiriyoruz.
+    }
+}
+
+
+
+@if (Model.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Etkinlik Adı</th>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>Etkinlik Süresi</th>
+                <th>Konum</th>
+                <th>Açıklama</th>
+                <th>Katıl</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var etkinlik in Model)
+            {
+                var bugun = DateTime.Now;
+                bool etkinlikAktif = etkinlik.Tarih >= bugun;
+                <tr>
+                    <td>@etkinlik.EtkinlikAdi</td>
+                    <td>@etkinlik.Tarih.ToString("dd.MM.yyyy")</td>
+                    <td>@etkinlik.Saat</td>
+                    <td>@etkinlik.EtkinlikSuresi</td>
+                    <td>@etkinlik.Konum</td>
+                    <td>@etkinlik.Aciklama</td>
+                    <td>
+                        <!-- Katıl Butonu -->
+                        <button class="btn btn-primary" onclick="katil(@etkinlik.ID)">Katıl</button>
+                    </td>
+                    <td>
+                        <!-- Yol Tarifi Butonu -->
+                        <button class="btn btn-success" onclick="getDirections('@etkinlik.Konum')">Yol Tarifi</button>
+                    </td>
+                    <td>
+                        <!-- Mesaj Butonu, başlangıçta devre dışı bırakıldı -->
+                        <button id="mesajBtn_@etkinlik.ID" class="btn btn-warning" onclick="mesajGonder(@etkinlik.ID)" disabled>Mesaj</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p> Bu kategoriye ait etkinlik bulunmamaktadır.</p>
+}
+<script>
+    function katil(etkinlikID) {
+        console.log("Gönderilen etkinlikID: ", etkinlikID);  // Etkinlik ID'sini kontrol et
+        currentEtkinlikId = etkinlikID;
+        $.ajax({
+            url: '/Etkinlikler/Katıl',  // URL'yi düzeltin
+            type: 'POST',
+            data: { etkinlikId: etkinlikID },
+            success: function (response) {
+                alert(response.message);
+                $("#mesajBtn_" + etkinlikID).prop("disabled", false);  // Mesaj butonunu aktif yap
+                $("#messageBox").show();  // Mesaj kutusunu görünür yap
+            },
+            error: function () {
+                alert("Kaydınız zaten mevcut! Lütfen baska bir etkinliğe katılmayı deneyiniz" + status);
+            }
+        });
+    }
+
+    function mesajGonder(etkinlikID) {
+    var mesaj = $('#messageInput').val();  // Giriş kutusundaki mesajı alıyoruz
+
+    $.ajax({
+        url: '@Url.Action("GonderMesaj", "Etkinlikler")', // Controller ve Action adını güncelleyin
+        type: 'POST',
+        data: {
+            etkinlikID: etkinlikID,
+            mesaj: mesaj
+        },
+        success: function (response) {
+            if (response.success) {
+                // Başarı mesajını kutuya ekle
+                $('#messageBox').append('<p>' + response.message + '</p>');
+                $('#messageBox').show();  // Mesaj kutusunu görünür yap
+                $('#messageInput').val('');  // Giriş kutusunu temizle
+            } else {
+                alert(response.message);  // Hata mesajı
+            }
+        },
+        error: function () {
+            alert('Mesaj gönderilirken bir hata oluştu.');
+        }
+    });
+}
+</script>
+
+
+<script>
+    function getDirections(destination) {
+        var start = "Kocaeli Üniversitesi Umuttepe Kampüsü";
+        var end = destination;
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: { lat: 40.7661, lng: 29.9299 }
+        });
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+
+        directionsService.route(request, function (result, status) {
+            if (status == 'OK') {
+                directionsRenderer.setDirections(result);
+            } else {
+                alert('Yol tarifi alınırken bir hata oluştu: ' + status);
+            }
+        });
+    }
+</script>

@@ -1,0 +1,27 @@
+﻿@model Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler
+@{
+    ViewBag.Title = "EtkinlikEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2>Etkinlik_Ekle Sayfası</h2>
+<br />
+<form class="form-group" method="post">
+    @Html.LabelFor(x => x.EtkinlikAdi)
+    @Html.TextBoxFor(x => x.EtkinlikAdi, new { @class = "form-control" })
+    @Html.LabelFor(x => x.Aciklama)
+    @Html.TextBoxFor(x => x.Aciklama, new { @class = "form-control" })
+    @Html.LabelFor(x => x.Tarih)
+    @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control" })
+    @Html.LabelFor(x => x.Saat)
+    @Html.TextBoxFor(x => x.Saat, new { @class = "form-control" })
+    @Html.LabelFor(x => x.EtkinlikSuresi)
+    @Html.TextBoxFor(x => x.EtkinlikSuresi, new { @class = "form-control" })
+    @Html.LabelFor(x => x.Konum)
+    @Html.TextBoxFor(x => x.Konum, new { @class = "form-control" })
+    @Html.LabelFor(x => x.Kategori)
+    @Html.TextBoxFor(x => x.Kategori, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Kaydet</button>
+</form>
+

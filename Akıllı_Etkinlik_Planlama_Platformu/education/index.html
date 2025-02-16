@@ -1,0 +1,1026 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Etkinlik Planlama Platformu</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
+	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="author" content="freehtml5.co" />
+
+	<!--
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE
+	DESIGNED & DEVELOPED by FreeHTML5.co
+
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="css/flexslider.css">
+
+	<!-- Pricing -->
+	<link rel="stylesheet" href="css/pricing.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		#fh5co-counter .row {
+			display: flex;
+			justify-content: flex-start; /* Sol hizalama */
+			gap: 20px; /* Kolonlar arasındaki boşluk */
+			padding-left: 11%; /* Bunu istediğiniz kadar artırabilirsiniz */
+		}
+	</style>
+	<style>
+		#event-list {
+			display: flex;
+			flex-wrap: wrap;
+			overflow: hidden;
+		}
+
+			#event-list .col-md-6 {
+				width: 50%;
+				padding: 10px;
+				display: none; /* Başlangıçta tüm etkinlikler gizlensin */
+			}
+
+		.pagination-container {
+			margin-top: 20px;
+			text-align: center;
+		}
+
+			.pagination-container button {
+				margin: 0 10px;
+			}
+	</style>
+
+
+</head>
+<body>
+	<script>
+		let currentPage = 1;
+		const itemsPerPage = 4;
+
+		// Sayfayı gösterme fonksiyonu
+		function showPage(page) {
+			const start = (page - 1) * itemsPerPage;
+			const end = page * itemsPerPage;
+			const items = document.querySelectorAll("#event-list .col-md-6");
+
+			// Tüm etkinlikleri gizle
+			items.forEach((item, index) => {
+				item.style.display = "none";
+			});
+
+			// Belirli sayfada olan etkinlikleri göster
+			for (let i = start; i < end && i < items.length; i++) {
+				items[i].style.display = "block";
+			}
+		}
+
+		// Sonraki sayfaya geçiş
+		function nextPage() {
+			if (currentPage < 3) { // Eğer sayfa 3'ten küçükse, bir sonraki sayfaya geç
+				currentPage++;
+				showPage(currentPage);
+			}
+		}
+
+		// Önceki sayfaya geçiş
+		function prevPage() {
+			if (currentPage > 1) { // Eğer sayfa 1'den büyükse, bir önceki sayfaya geç
+				currentPage--;
+				showPage(currentPage);
+			}
+		}
+
+		// İlk sayfayı göster
+		showPage(currentPage);
+
+		// Sayfa geçişlerini butonlara bağla
+		document.getElementById("nextBtn").addEventListener("click", nextPage);
+		document.getElementById("prevBtn").addEventListener("click", prevPage);
+	</script>
+
+
+	<div class="fh5co-loader"></div>
+
+	<div id="page">
+		<nav class="fh5co-nav" role="navigation">
+			<div class="top">
+
+				<div class="row">
+					<div class="col-xs-12 text-right">
+						<ul class="fh5co-social">
+							<li><a href="#"><i class="icon-facebook2"></i></a></li>
+							<li><a href="#"><i class="icon-twitter2"></i></a></li>
+							<li><a href="#"><i class="icon-dribbble2"></i></a></li>
+							<li><a href="#"><i class="icon-github"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-2">
+							<div id="fh5co-logo"><a href="index.html"><i class="icon-study"></i>Educ<span>.</span></a></div>
+						</div>
+						<div class="col-xs-10 text-right menu-1">
+							<ul>
+								<li class="active"><a href="index.html">Ana Sayfa</a></li>
+								<li><a href="courses.html">Etkinlikler</a></li>
+								<li><a href="about.html">Hakkımızda</a></li>
+								<li><a href="contact.html">İletişim</a></li>
+								<li class="btn-cta"><a href="#"><span>Giriş</span></a></li>
+								<li class="btn-cta"><a href="#"><span>Etkinlik Oluştur</span></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<aside id="fh5co-hero">
+			<div class="flexslider">
+				<ul class="slides">
+					<li style="background-image: url('../Pictures/dogayuruyusu.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Doğanın Kalbinde Bir Yolculuk</h1>
+										<h2>Adım adım keşfedin, her anın tadını çıkarın</h2>
+										<p><a class="btn btn-primary btn-lg" href="#">Haydi, doğa seni bekliyor!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/bisiklet.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Pedallarını Çevir, Yeni Keşifler Yap</h1>
+										<h2>Doğayla iç içe, özgürlüğün tadını çıkar</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Haydi, pedala bas ve yolculuk başlasın!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/Koşu.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Koşmaya Başla, Gücünü Keşfet</h1>
+										<h2>Her adımda daha güçlü ve daha özgür hisset</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Hadi, yola çık ve hızını keşfet!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/kültür.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Kültürleri Keşfet, Yeni Dünyalar Aç</h1>
+										<h2>Yeni yerler, yeni insanlar, eşsiz deneyimler seni bekliyor</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Hadi, keşfetmeye başla!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/müzik.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Ritmi Hissset, Müzik ile Hareket Et!</h1>
+										<h2>Canlı müzik, unutulmaz anlar seni bekliyor</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Müzikal yolculuğa başla!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/sanat.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Sanatla Kendini İfade Et, Yaratıcılığını Keşfet!</h1>
+										<h2>Renklerin ve formların büyülü dünyasına adım atın</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Sanat yolculuğuna başla!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/spor.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Her Adımda Gücünü Keşfet, Sınırlarını Zorla!</h1>
+										<h2>Spor, bedeni ve zihni güçlendiren bir yolculuktur</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Şimdi Başla, Sağlıklı Bir Yaşam İçin Adım At!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/teknoloji.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Teknoloji, Geleceğin Kapılarını Aralar</h1>
+										<h2>Yenilikçi Çözümler, İlham Verici Etkinlikler</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Teknoloji Dünyasında Keşfe Çık!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/tırmanıs.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Yükseklere Tırmanmanın İlk Adımı Cesaretle Başlar</h1>
+										<h2>Zorlukları aşın, engelleri geçin ve zirveye ulaşın!</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Tırmanışa Başla!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/yemekkk.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Birlikte Yemek Yapmak, Paylaşmanın En Güzel Yolu</h1>
+										<h2>Bu etkinlik size <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a> tarafından sunulmuştur</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Hadi Başlayalım, Birlikte Lezzetli Bir Deneyim Paylaşalım!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/yoga.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Ruhunu Dinlendir, Bedenini Güçlendir</h1>
+										<h2>Huzurlu bir zihin ve güçlü bir beden için yoga seni bekliyor!</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Yoga ile Yeniden Doğ!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li style="background-image: url('../Pictures/kıs_sporu.jpg');">
+						<div class="overlay-gradient"></div>
+						<div class="container">
+							<div class="row">
+								<div class="col-md-8 col-md-offset-2 text-center slider-text">
+									<div class="slider-text-inner">
+										<h1>Hızlı ve Etkili Egzersiz ile Formda Kal!</h1>
+										<h2>Kısa süreli ama etkili antrenmanlarla enerjini artır!</h2>
+										<p><a class="btn btn-primary btn-lg btn-learn" href="#">Haydi Başla, Kendini Keşfet!</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</aside>
+
+		<div id="fh5co-course-categories">
+			<div class="container">
+				<div class="row animate-box">
+					<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+						<h2>Etkinlik Kategorileri</h2>
+						<p>Farklı ilgi alanlarına hitap eden çeşitli etkinlik kategorilerimizi keşfedin ve size en uygun olanı seçerek yeni deneyimler yaşayın.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-bicycle"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Bisiklet turu</a></h3>
+								<p>Farklı parkurlarda keşif yaparak bisiklet sürmenin keyfini çıkarın. Hızlı veya sakin tempolarla doğayla iç içe bir yolculuk.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-hiking"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Doğa Yürüyüşü</a></h3>
+								<p>"Doğanın eşsiz güzellikleri eşliğinde sağlıklı bir yürüyüşe çıkın. Ruhunuzu dinlendirecek rotalarla keşfe çıkın."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="icon-weather-snow"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Kış Sporları</a></h3>
+								<p>"Karla kaplı dağlarda adrenalini hissedin. Kayak, dağcılık ve diğer kış sporları ile kışın tadını çıkarın."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-running"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Koşu Turları</a></h3>
+								<p>"Doğada veya şehirde, temponuzu kendinize göre ayarlayın ve sağlıklı yaşam yolculuğuna başlayın."</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-landmark"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Kültür Gezileri</a></h3>
+								<p>"Tarihi ve kültürel mekanları keşfedin, geçmişin izlerini adım adım takip ederek yeni bir bakış açısı kazanın."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-music"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Müzik &amp; Festival</a></h3>
+								<p>"Canlı performanslarla dolu müzik festivallerine katılın ve müzikle ruhunuzu özgür bırakın."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-paint-brush"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Sanatsal Faliyetler</a></h3>
+								<p>"Yaratıcılığınızı keşfedin ve sanatı hayatınıza dahil edin. Resimden seramiğe kadar farklı sanat dallarında pratik yapın."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-futbol"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Spor Etkinlikleri</a></h3>
+								<p>"Farklı spor dallarına adım atın, takım oyunları ve bireysel aktivitelerle sağlıklı yaşamı kutlayın."</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-robot"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Teknolojik Etkinlikler</a></h3>
+								<p>"Geleceği keşfedin! Teknolojinin sunduğu imkanlarla interaktif etkinlikler ve yenilikçi deneyimlere katılın."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-mountain"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Tırmanış</a></h3>
+								<p>"Zirveye ulaşın, engelleri aşın! Dağcılıkla doğayla mücadele edin ve yüksek irtifada heyecanı hissedin."</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-utensils"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Yemek Yapma Etkinliği</a></h3>
+								<p>"Lezzetli yemekler yaparken yeni tarifler öğrenin. Mutfakta eğlenceli bir deneyim yaşayın!"</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="fas fa-spa"></i>
+							</span>
+							<div class="desc">
+								<h3><a href="#">Yoga Etkinliği</a></h3>
+								<p>"Bedensel ve zihinsel dengeyi bulmak için yoga ile rahatlayın, esnekliğinizi geliştirin ve huzuru bulun."</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-counter" class="fh5co-counters" style="background-image: url(images/img_bg_4.jpg);" data-stellar-background-ratio="0.5">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-3 col-sm-6 text-center animate-box">
+								<span class="icon"><i class="fa fa-user-friends"></i></span>
+								<span class="fh5co-counter js-counter" data-from="0" data-to="5234" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="fh5co-counter-label">Takipçiler</span>
+							</div>
+							<div class="col-md-3 col-sm-6 text-center animate-box">
+								<span class="icon"><i class="fa fa-users"></i></span>
+								<span class="fh5co-counter js-counter" data-from="0" data-to="3700" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="fh5co-counter-label">Katılımcılar</span>
+							</div>
+							<div class="col-md-3 col-sm-6 text-center animate-box">
+								<span class="icon"><i class="fa fa-calendar-check"></i></span>
+								<span class="fh5co-counter js-counter" data-from="0" data-to="123" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="fh5co-counter-label">Gerçekleştirilen Etkinlikler</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="fh5co-course">
+			<div class="container">
+				<div class="row animate-box">
+					<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+						<h2>Etkinliklerimiz</h2>
+						<p style="font-size: 1.2rem; color: #6c757d; margin-top: 10px;">Farklı ilgi alanlarına hitap eden etkinliklerimizle her anı değerli kılın. Katılmak istediğiniz etkinlikleri keşfedin ve yeni deneyimlere adım atın.</p>
+					</div>
+				</div>
+
+				<!-- Etkinlikler Listesi -->
+				<div class="row" id="event-list">
+					<!-- Etkinlik 1 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-1.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Bisiklet Turları</a></h3>
+								<p>"Rüzgarın yüzünüzü okşadığı ve doğal güzelliklerin içinde kaybolduğunuz bisiklet turlarıyla adım adım keşfe çıkın."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 2 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-2.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Doğa Yürüyüşü</a></h3>
+								<p>"Şehir hayatından uzaklaşıp doğanın sunduğu huzuru keşfetmek için düzenlediğimiz doğa yürüyüşleri ile zihninizi arındırın. "</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 3 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-3.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Kış Spoarları</a></h3>
+								<p>"Karla kaplı dağlar, kayak pistleri ve kışın büyülü atmosferiyle kış sporları etkinliklerimizde eğlenceyi ve macerayı bir arada yaşayın."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 4 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-4.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Koşu Turları</a></h3>
+								<p>"Farklı parkurlarda koşarak hem sağlığınızı geliştirin hem de doğanın içinde dinç bir zihinle koşmanın keyfini çıkarın."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 5 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-5.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Kültür Gezileri</a></h3>
+								<p>"Geçmişin izlerini günümüzde keşfedin! Kültürel gezilerimizle tarihi yerleri ve özgün kültürleri yakından tanıyın."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 6 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-6.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Müzik &amp; Festival</a></h3>
+								<p>"Birbirinden keyifli müzik etkinlikleri ve festivallerle ruhunuzu dinlendirin. Müzik her zaman en iyi ilaçtır. Bu sayede kedninizi yenilersiniz."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 7 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-7.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Sanatsal Faliyetler</a></h3>
+								<p>"Yaratıcılığınızı keşfedin! Resim, heykel, fotoğraf ve diğer sanatsal faaliyetlerde kendinizi ifade etmenin yollarını bulun."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 8 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-8.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Spor Etkinlikleri</a></h3>
+								<p>"Farklı spor dallarında hem eğlenin hem de sağlıklı bir yaşam tarzını benimseyin. Futbol, basketbol, voleybol ve daha fazlası!"</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 9 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-9.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Teknoloji Etkinlikleri</a></h3>
+								<p>"Yeni teknolojiler, yenilikçi çözümler ve gelişen dijital dünyayla ilgili ilham verici etkinliklerimizde yerinizi alın.Yeni insanlar tanıyın."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 10 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-10.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Tırmanış</a></h3>
+								<p>"Adrenalin dolu anlar ve doğa ile iç içe bir deneyim için tırmanış etkinliklerimize katılın. Zorlukları aşmak için doğru yerdesiniz."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 11 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-11.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Yemek Yapma Etkinliği</a></h3>
+								<p>"Ağzınızı sulandıracak tarifler ve keyifli yemek yapma etkinliklerimizde yeni lezzetler keşfedin, mutfağınızı şenlendirin."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Etkinlik 12 -->
+					<div class="col-md-6 animate-box">
+						<div class="course">
+							<a href="#" class="course-img" style="background-image: url(images/project-12.jpg);"></a>
+							<div class="desc">
+								<h3><a href="#">Yoga Etkinliği</a></h3>
+								<p>"Vücudunuzu rahatlatın ve zihninizi sakinleştirin. Yoga etkinliklerimizle dengeyi ve huzuru yeniden bulun.Yeni arkadaşlar edinin."</p>
+								<span><a href="#" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Sayfa Navigasyon -->
+				<div class="pagination-container">
+					<button onclick="prevPage()">Önceki</button>
+					<button onclick="nextPage()">Sonraki</button>
+				</div>
+			</div>
+		</div>
+
+
+		<div id="fh5co-blog">
+			<div class="container">
+				<div class="row animate-box">
+					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+						<h2>Yaklaşan Etkinlikler</h2>
+						<p>İlgi alanınıza göre katılmak istediğiniz etkinliğe kayıt oluşturmayı unutmayın.Orada görüşmek üzere :)</p>
+					</div>
+				</div>
+				<div class="row row-padded-mb">
+					<div class="col-md-4 animate-box">
+						<div class="fh5co-event">
+							<div class="date text-center"><span>15<br>Mar.</span></div>
+							<h3><a href="#">USA, International Triathlon Event</a></h3>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							<p><a href="#">Read More</a></p>
+						</div>
+					</div>
+					<div class="col-md-4 animate-box">
+						<div class="fh5co-event">
+							<div class="date text-center"><span>15<br>Mar.</span></div>
+							<h3><a href="#">USA, International Triathlon Event</a></h3>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							<p><a href="#">Read More</a></p>
+						</div>
+					</div>
+					<div class="col-md-4 animate-box">
+						<div class="fh5co-event">
+							<div class="date text-center"><span>15<br>Mar.</span></div>
+							<h3><a href="#">New Device Develope by Microsoft</a></h3>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							<p><a href="#">Read More</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-md-4">
+						<div class="fh5co-blog animate-box">
+							<a href="#" class="blog-img-holder" style="background-image: url(images/project-1.jpg);"></a>
+							<div class="blog-text">
+								<h3><a href="#">Healty Lifestyle &amp; Living</a></h3>
+								<span class="posted_on">March. 15th</span>
+								<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
+								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+						<div class="fh5co-blog animate-box">
+							<a href="#" class="blog-img-holder" style="background-image: url(images/project-2.jpg);"></a>
+							<div class="blog-text">
+								<h3><a href="#">Healty Lifestyle &amp; Living</a></h3>
+								<span class="posted_on">March. 15th</span>
+								<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
+								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4">
+						<div class="fh5co-blog animate-box">
+							<a href="#" class="blog-img-holder" style="background-image: url(images/project-3.jpg);"></a>
+							<div class="blog-text">
+								<h3><a href="#">Healty Lifestyle &amp; Living</a></h3>
+								<span class="posted_on">March. 15th</span>
+								<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>
+								<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-pricing" class="fh5co-bg-section">
+			<div class="container">
+				<div class="row animate-box">
+					<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+						<h2>Plan &amp; Pricing</h2>
+						<p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="pricing pricing--rabten">
+						<div class="col-md-4 animate-box">
+							<div class="pricing__item">
+								<div class="wrap-price">
+									<!-- <div class="icon icon-user2"></div> -->
+									<h3 class="pricing__title">Trial</h3>
+									<!-- <p class="pricing__sentence">Single user license</p> -->
+								</div>
+								<div class="pricing__price">
+									<span class="pricing__anim pricing__anim--1">
+										<span class="pricing__currency">$</span>0
+									</span>
+									<span class="pricing__anim pricing__anim--2">
+										<span class="pricing__period">per year</span>
+									</span>
+								</div>
+								<div class="wrap-price">
+									<ul class="pricing__feature-list">
+										<li class="pricing__feature">One Day Trial</li>
+										<li class="pricing__feature">Limited Courses</li>
+										<li class="pricing__feature">Free 3 Lessons</li>
+										<li class="pricing__feature">No Supporter</li>
+										<li class="pricing__feature">No Tutorial</li>
+										<li class="pricing__feature">No Ebook</li>
+										<li class="pricing__feature">Limited Registered User</li>
+									</ul>
+									<button class="pricing__action">Choose plan</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 animate-box">
+							<div class="pricing__item">
+								<div class="wrap-price">
+									<!-- <div class="icon icon-store"></div> -->
+									<h3 class="pricing__title">Silver</h3>
+									<!-- <p class="pricing__sentence">Up to 5 users</p> -->
+								</div>
+								<div class="pricing__price">
+									<span class="pricing__anim pricing__anim--1">
+										<span class="pricing__currency">$</span>79
+									</span>
+									<span class="pricing__anim pricing__anim--2">
+										<span class="pricing__period">per year</span>
+									</span>
+								</div>
+								<div class="wrap-price">
+									<ul class="pricing__feature-list">
+										<li class="pricing__feature">One Year Standard Access</li>
+										<li class="pricing__feature">Limited Courses</li>
+										<li class="pricing__feature">300+ Lessons</li>
+										<li class="pricing__feature">Random Supporter</li>
+										<li class="pricing__feature">View Only Ebook</li>
+										<li class="pricing__feature">Standard Tutorials</li>
+										<li class="pricing__feature">Unlimited Registered User</li>
+									</ul>
+									<button class="pricing__action">Choose plan</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 animate-box">
+							<div class="pricing__item">
+								<div class="wrap-price">
+									<!-- <div class="icon icon-home2"></div> -->
+									<h3 class="pricing__title">Gold</h3>
+									<!-- <p class="pricing__sentence">Unlimited users</p> -->
+								</div>
+								<div class="pricing__price">
+									<span class="pricing__anim pricing__anim--1">
+										<span class="pricing__currency">$</span>499
+									</span>
+									<span class="pricing__anim pricing__anim--2">
+										<span class="pricing__period">per year</span>
+									</span>
+								</div>
+								<div class="wrap-price">
+									<ul class="pricing__feature-list">
+										<li class="pricing__feature">Life Time Access</li>
+										<li class="pricing__feature">Unlimited All Courses</li>
+										<li class="pricing__feature">7000+ Lessons &amp; Growing</li>
+										<li class="pricing__feature">Free Supporter</li>
+										<li class="pricing__feature">Free Ebook Downloads</li>
+										<li class="pricing__feature">Premium Tutorials</li>
+										<li class="pricing__feature">Unlimited Registered User</li>
+									</ul>
+									<button class="pricing__action">Choose plan</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-register" style="background-image: url(images/img_bg_2.jpg);">
+			<div class="overlay"></div>
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 animate-box">
+					<div class="date-counter text-center">
+						<h2>Get 400 of Online Courses for Free</h2>
+						<h3>By Mike Smith</h3>
+						<div class="simply-countdown simply-countdown-one"></div>
+						<p><strong>Limited Offer, Hurry Up!</strong></p>
+						<p><a href="#" class="btn btn-primary btn-lg btn-reg">Register Now!</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="fh5co-gallery" class="fh5co-bg-section">
+			<div class="row text-center">
+				<h2><span>Instagram Gallery</span></h2>
+			</div>
+			<div class="row">
+				<div class="col-md-3 col-padded">
+					<a href="#" class="gallery" style="background-image: url(images/project-5.jpg);"></a>
+				</div>
+				<div class="col-md-3 col-padded">
+					<a href="#" class="gallery" style="background-image: url(images/project-2.jpg);"></a>
+				</div>
+				<div class="col-md-3 col-padded">
+					<a href="#" class="gallery" style="background-image: url(images/project-3.jpg);"></a>
+				</div>
+				<div class="col-md-3 col-padded">
+					<a href="#" class="gallery" style="background-image: url(images/project-4.jpg);"></a>
+				</div>
+			</div>
+		</div>
+
+		<footer id="fh5co-footer" role="contentinfo" style="background-image: url(images/img_bg_4.jpg);">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row row-pb-md">
+					<div class="col-md-3 fh5co-widget">
+						<h3>About Education</h3>
+						<p>Facilis ipsum reprehenderit nemo molestias. Aut cum mollitia reprehenderit. Eos cumque dicta adipisci architecto culpa amet.</p>
+					</div>
+					<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
+						<h3>Learning</h3>
+						<ul class="fh5co-footer-links">
+							<li><a href="#">Course</a></li>
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Contact</a></li>
+							<li><a href="#">Terms</a></li>
+							<li><a href="#">Meetups</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
+						<h3>Learn &amp; Grow</h3>
+						<ul class="fh5co-footer-links">
+							<li><a href="#">Blog</a></li>
+							<li><a href="#">Privacy</a></li>
+							<li><a href="#">Testimonials</a></li>
+							<li><a href="#">Handbook</a></li>
+							<li><a href="#">Held Desk</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
+						<h3>Engage us</h3>
+						<ul class="fh5co-footer-links">
+							<li><a href="#">Marketing</a></li>
+							<li><a href="#">Visual Assistant</a></li>
+							<li><a href="#">System Analysis</a></li>
+							<li><a href="#">Advertise</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-2 col-sm-4 col-xs-6 col-md-push-1 fh5co-widget">
+						<h3>Legal</h3>
+						<ul class="fh5co-footer-links">
+							<li><a href="#">Find Designers</a></li>
+							<li><a href="#">Find Developers</a></li>
+							<li><a href="#">Teams</a></li>
+							<li><a href="#">Advertise</a></li>
+							<li><a href="#">API</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="row copyright">
+					<div class="col-md-12 text-center">
+						<p>
+							<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small>
+							<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a> &amp; <a href="https://www.pexels.com/" target="_blank">Pexels</a></small>
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+	</div>
+
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- Carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Flexslider -->
+	<script src="js/jquery.flexslider-min.js"></script>
+	<!-- countTo -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Count Down -->
+	<script src="js/simplyCountdown.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+	<script>
+		var d = new Date(new Date().getTime() + 1000 * 120 * 120 * 2000);
+
+		// default example
+		simplyCountdown('.simply-countdown-one', {
+			year: d.getFullYear(),
+			month: d.getMonth() + 1,
+			day: d.getDate()
+		});
+
+		//jQuery example
+		$('#simply-countdown-losange').simplyCountdown({
+			year: d.getFullYear(),
+			month: d.getMonth() + 1,
+			day: d.getDate(),
+			enableUtc: false
+		});
+	</script>
+</body>
+</html>
+

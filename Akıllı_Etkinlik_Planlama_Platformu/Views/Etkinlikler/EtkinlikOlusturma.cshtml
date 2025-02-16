@@ -1,0 +1,70 @@
+﻿@model Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar.Etkinlikler
+@{
+    ViewBag.Title = "EtkinlikOlusturma";
+    Layout = "~/Views/Shared/_EtkinlikOlusturLayout.cshtml";
+}
+
+
+@{ var successMessage = TempData["SuccessMessage"];
+    if (successMessage != null)
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div> } }
+
+
+@using (Html.BeginForm("EtkinlikOlusturma", "Etkinlikler", FormMethod.Post))
+{
+<table class="table">
+    <tr>
+        <td><label for="EtkinlikAdi">Etkinlik Adı</label></td>
+        <td>@Html.TextBoxFor(m => m.EtkinlikAdi, new { @class = "form-control" })</td>
+    </tr>
+    <tr>
+        <td><label for="Aciklama">Açıklama</label></td>
+        <td>@Html.TextBoxFor(m => m.Aciklama, new { @class = "form-control" })</td>
+    </tr>
+    <tr>
+        <td><label for="Tarih">Tarih</label></td>
+        <td>@Html.TextBoxFor(m => m.Tarih, new { @class = "form-control", @type = "date" })</td>
+    </tr>
+    <tr>
+        <td><label for="Saat">Saat</label></td>
+        <td>@Html.TextBoxFor(m => m.Saat, new { @class = "form-control", @type = "time" })</td>
+    </tr>
+    <tr>
+        <td><label for="EtkinlikSuresi">Etkinlik Süresi</label></td>
+        <td>@Html.TextBoxFor(m => m.EtkinlikSuresi, new { @class = "form-control", @type = "time" })</td>
+    </tr>
+    <tr>
+        <td><label for="Konum">Konum</label></td>
+        <td>@Html.TextBoxFor(m => m.Konum, new { @class = "form-control" })</td>
+    </tr>
+    <tr>
+        <td><label for="Kategori">Kategori</label></td>
+        <td>
+            @Html.DropDownList("Kategori", new SelectList(new List<string>
+            {
+                "Kış Sporları",
+                "Koşu Turları",
+                "Kültürel Etkinlikler",
+                "Müzik Etkinlikleri",
+                "Spor Etkinlikleri",
+                "Teknoloji Etkinlikleri",
+                "Tırmanış Etkinlikleri",
+                "Yemek Etkinlikleri",
+                "Yoga Etkinlikleri",
+                "Doğa Yürüyüşü",
+                "Bisiklet Turları",
+                "Sanat Etkinlikleri"
+            }), "Select Category", new { @class = "form-control" })
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button type="submit" class="btn btn-primary">Etkinlik Oluştur</button>
+        </td>
+    </tr>
+</table>}
+
+

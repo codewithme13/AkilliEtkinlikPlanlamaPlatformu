@@ -1,0 +1,1287 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Etkinlik Planlama Platformu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
+    <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+    <meta name="author" content="freehtml5.co" />
+
+    <!--
+    //////////////////////////////////////////////////////
+
+    FREE HTML5 TEMPLATE
+    DESIGNED & DEVELOPED by FreeHTML5.co
+
+    Website: 		http://freehtml5.co/
+    Email: 			info@freehtml5.co
+    Twitter: 		http://twitter.com/fh5co
+    Facebook: 		https://www.facebook.com/fh5co
+
+    //////////////////////////////////////////////////////
+     -->
+    <!-- Facebook and Twitter integration -->
+    <meta property="og:title" content="" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:description" content="" />
+    <meta name="twitter:title" content="" />
+    <meta name="twitter:image" content="" />
+    <meta name="twitter:url" content="" />
+    <meta name="twitter:card" content="" />
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400" rel="stylesheet">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="~/education/css/animate.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="~/education/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="~/education/css/bootstrap.css">
+
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="~/education/css/magnific-popup.css">
+
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="~/education/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/education/css/owl.theme.default.min.css">
+
+    <!-- Flexslider  -->
+    <link rel="stylesheet" href="~/education/css/flexslider.css">
+
+    <!-- Pricing -->
+    <link rel="stylesheet" href="~/education/css/pricing.css">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="~/education/css/style.css">
+	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <!-- Modernizr JS -->
+    <script src="~/education/js/modernizr-2.6.2.min.js"></script>
+    <!-- FOR IE9 below -->
+    <!--[if lt IE 9]>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #fh5co-counter .row {
+            display: flex;
+            justify-content: flex-start; /* Sol hizalama */
+            gap: 20px; /* Kolonlar arasındaki boşluk */
+            padding-left: 11%; /* Bunu istediğiniz kadar artırabilirsiniz */
+        }
+    </style>
+    <style>
+        /* Blog stilini düzenliyoruz */
+        .fh5co-blog {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .blog-img-holder {
+            display: block;
+            width: 100%;
+            height: 200px;
+            background-position: center;
+            background-size: cover;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .blog-text {
+            padding: 20px;
+            text-align: center;
+        }
+
+            .blog-text h3 {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .blog-text .posted_on {
+                font-size: 14px;
+                color: #888;
+            }
+
+            .blog-text .comment {
+                font-size: 14px;
+                color: #888;
+            }
+
+            .blog-text p {
+                font-size: 16px;
+                color: #555;
+                margin-top: 15px;
+            }
+
+        /* Hover etkisi */
+        .fh5co-blog:hover .blog-img-holder {
+            opacity: 0.8;
+        }
+
+        .fh5co-blog:hover .blog-text {
+            background-color: #f8f8f8;
+        }
+    </style>
+    <style>
+        #event-list {
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+
+            #event-list .col-md-6 {
+                width: 50%;
+                padding: 10px;
+                display: none; /* Başlangıçta tüm etkinlikler gizlensin */
+            }
+
+        .pagination-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .pagination-container button {
+                margin: 0 10px;
+            }
+    </style>
+    <style>
+
+        #map {
+            height: 400px;
+            width: 100%;
+            border: 1px solid #ddd;
+            display: block; /* Harita görünsün */
+        }
+    </style>
+
+
+
+
+
+
+
+</head>
+<body>
+
+    <script>
+        let currentPage = 1;
+        const itemsPerPage = 4;
+
+        // Sayfayı gösterme fonksiyonu
+        function showPage(page) {
+            const start = (page - 1) * itemsPerPage;
+            const end = page * itemsPerPage;
+            const items = document.querySelectorAll("#event-list .col-md-6");
+
+            // Tüm etkinlikleri gizle
+            items.forEach((item, index) => {
+                item.style.display = "none";
+            });
+
+            // Belirli sayfada olan etkinlikleri göster
+            for (let i = start; i < end && i < items.length; i++) {
+                items[i].style.display = "block";
+            }
+        }
+
+        // Sonraki sayfaya geçiş
+        function nextPage() {
+            if (currentPage < 3) { // Eğer sayfa 3'ten küçükse, bir sonraki sayfaya geç
+                currentPage++;
+                showPage(currentPage);
+            }
+        }
+
+        // Önceki sayfaya geçiş
+        function prevPage() {
+            if (currentPage > 1) { // Eğer sayfa 1'den büyükse, bir önceki sayfaya geç
+                currentPage--;
+                showPage(currentPage);
+            }
+        }
+
+        // İlk sayfayı göster
+        showPage(currentPage);
+
+        // Sayfa geçişlerini butonlara bağla
+        document.getElementById("nextBtn").addEventListener("click", nextPage);
+        document.getElementById("prevBtn").addEventListener("click", prevPage);
+    </script>
+    <!-- Google Maps API yükleme -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+    <!-- Google Maps'ı başlatan fonksiyon -->
+    <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 10,
+                center: { lat: 40.7661, lng: 29.9299 }
+            });
+        }
+    </script>
+    <script>
+        function getDirectionss(destination) {
+            var start = 'Kocaeli Üniversitesi Umuttepe Kampüsü';
+            var end = destination;
+
+            var mapContainer = document.getElementById('map');
+            mapContainer.style.display = 'block'; // Harita görünür hale getiriliyor
+
+            var map = new google.maps.Map(mapContainer, {
+                zoom: 10,
+                center: { lat: 40.7661, lng: 29.9299 }
+            });
+
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map);
+
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            directionsService.route(request, function (result, status) {
+                if (status == 'OK') {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert('Yol tarifi alınırken bir hata oluştu: ' + status);
+                }
+            });
+        }
+    </script>
+    <script>
+        function katil(etkinlikID) {
+            console.log("Gönderilen etkinlikID: ", etkinlikID);  // Etkinlik ID'sini kontrol et
+            $.ajax({
+                url: '/Etkinlikler/Katıl',  // URL'yi düzeltin
+                type: 'POST',
+                data: { etkinlikId: etkinlikID },
+                success: function (response) {
+                    alert(response.message);
+                },
+                error: function () {
+                    alert("Bir hata oluştu.");
+                }
+            });
+        }
+    </script>
+
+
+
+    <div class="fh5co-loader"></div>
+
+    <div id="page">
+        <nav class="fh5co-nav" role="navigation">
+            <div class="top">
+
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <ul class="fh5co-social">
+                            <li><a href="#"><i class="icon-facebook2"></i></a></li>
+                            <li><a href="#"><i class="icon-twitter2"></i></a></li>
+                            <li><a href="#"><i class="icon-dribbble2"></i></a></li>
+                            <li><a href="#"><i class="icon-github"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="top-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <div id="fh5co-logo"><a href="index.html"><i class="icon-world"></i>YAZLAB<span></span></a></div>
+                        </div>
+                        <div class="col-xs-10 text-right menu-1">
+                            <ul>
+                                <li class="active"><a href="index.html">Ana Sayfa</a></li>
+                                <li><a href="courses.html">Etkinlikler</a></li>
+                                <li><a href="#hakkimizda">Hakkımızda</a></li>
+                                <li><a href="#iletisim">İletişim</a></li>
+                                <!-- Eğer kullanıcı giriş yaptıysa çıkış yap butonu, yapmadıysa giriş yap butonu görünsün -->
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <li class="btn-cta"><a href="@Url.Action("Logout", "Login")"><span>Çıkış Yap</span></a></li>
+                                    <li class="btn-cta"><a href="@Url.Action("EtkinlikOlusturma", "Etkinlikler")"><span>Etkinlik Oluştur</span></a></li>
+                                    if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"] == true)
+                                    {
+                                        <li class="btn-cta"><a href="@Url.Action("Index", "Etkinlikler")"><span>Admin Panel</span></a></li>
+
+                                    }
+                                    else
+                                    {
+                                        <li class="btn-cta"><a href="@Url.Action("gerekli", "KullaniciPanel")"><span>Profilim</span></a></li>
+                                        <li class="btn-cta" style="display: inline-block; margin-left: 10px;">
+                                            <span>Puan: @Session["Puan"]</span>
+                                        </li>
+                                    }
+                                }
+                                else
+                                {
+                                    <li class="btn-cta"><a href="@Url.Action("Index", "Login")"><span>Giriş Yap</span></a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <aside id="fh5co-hero">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li style="background-image: url('../Pictures/doğayürüyüşü.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Doğanın Kalbinde Bir Yolculuk</h1>
+                                        <h2>Adım adım keşfedin, her anın tadını çıkarın</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/bisikletturları.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Pedallarını Çevir, Yeni Keşifler Yap</h1>
+                                        <h2>Doğayla iç içe, özgürlüğün tadını çıkar</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Haydi, pedala bas ve yolculuk başlasın!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/koşuturları.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Koşmaya Başla, Gücünü Keşfet</h1>
+                                        <h2>Her adımda daha güçlü ve daha özgür hisset</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Hadi, yola çık ve hızını keşfet!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/kültüreletkinlikler.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Kültürleri Keşfet, Yeni Dünyalar Aç</h1>
+                                        <h2>Yeni yerler, yeni insanlar, eşsiz deneyimler seni bekliyor</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Hadi, keşfetmeye başla!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/müziketkinlikleri.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Ritmi Hissset, Müzik ile Hareket Et!</h1>
+                                        <h2>Canlı müzik, unutulmaz anlar seni bekliyor</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Müzikal yolculuğa başla!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/sanatetkinlikleri.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Sanatla Kendini İfade Et, Yaratıcılığını Keşfet!</h1>
+                                        <h2>Renklerin ve formların büyülü dünyasına adım atın</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Sanat yolculuğuna başla!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/sporetkinlikleri.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Her Adımda Gücünü Keşfet, Sınırlarını Zorla!</h1>
+                                        <h2>Spor, bedeni ve zihni güçlendiren bir yolculuktur</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Şimdi Başla, Sağlıklı Bir Yaşam İçin Adım At!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/teknolojiketkinlikler.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Teknoloji, Geleceğin Kapılarını Aralar</h1>
+                                        <h2>Yenilikçi Çözümler, İlham Verici Etkinlikler</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Teknoloji Dünyasında Keşfe Çık!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/tırmanışetkinlikleri.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Yükseklere Tırmanmanın İlk Adımı Cesaretle Başlar</h1>
+                                        <h2>Zorlukları aşın, engelleri geçin ve zirveye ulaşın!</h2>
+
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Tırmanışa Başla!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/yemeketkinlikleri.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Birlikte Yemek Yapmak, Paylaşmanın En Güzel Yolu</h1>
+                                        <h2>Bu etkinlik size <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a> tarafından sunulmuştur</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Hadi Başlayalım, Birlikte Lezzetli Bir Deneyim Paylaşalım!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/yogaetkinlikleri.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Ruhunu Dinlendir, Bedenini Güçlendir</h1>
+                                        <h2>Huzurlu bir zihin ve güçlü bir beden için yoga seni bekliyor!</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Yoga ile Yeniden Doğ!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="background-image: url('../Pictures/kissporlari.jpg');">
+                        <div class="overlay-gradient"></div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2 text-center slider-text">
+                                    <div class="slider-text-inner">
+                                        <h1>Hızlı ve Etkili Egzersiz ile Formda Kal!</h1>
+                                        <h2>Kısa süreli ama etkili antrenmanlarla enerjini artır!</h2>
+                                        @if (Session["KullaniciAdi"] != null)
+                                        {
+                                            <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Haydi Başla, Kendini Keşfet!</a>
+                                        }
+                                        else
+                                        {
+                                            TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                            <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Haydi, doğa seni bekliyor!</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+
+        <div id="fh5co-course-categories">
+            <div class="container">
+                <div class="row animate-box">
+                    <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                        <h2>Etkinlik Kategorileri</h2>
+                        <p>Farklı ilgi alanlarına hitap eden çeşitli etkinlik kategorilerimizi keşfedin ve size en uygun olanı seçerek yeni deneyimler yaşayın.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-bicycle"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Bisiklet turu</a> }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Bisiklet turu</a>}
+                                </h3>
+                                <p>Farklı parkurlarda keşif yaparak bisiklet sürmenin keyfini çıkarın. Hızlı veya sakin tempolarla doğayla iç içe bir yolculuk.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-hiking"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Doğa Yürüyüşü</a> }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Doğa Yürüyüşü</a>}
+                                </h3>
+                                <p>Doğanın eşsiz güzellikleri eşliğinde sağlıklı bir yürüyüşe çıkın. Ruhunuzu dinlendirecek rotalarla keşfe çıkın.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="icon-weather-snow"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Kış Sporları</a> }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Kış Sporları</a>}
+                                </h3>
+                                <p>Karla kaplı dağlarda adrenalini hissedin. Kayak, dağcılık ve diğer kış sporları ile kışın tadını çıkarın.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-running"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Koşu Turları</a> }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Koşu Turları</a>}
+                                </h3>
+                                <p>Doğada veya şehirde, temponuzu kendinize göre ayarlayın ve sağlıklı yaşam yolculuğuna başlayın.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-landmark"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Kültür Gezileri</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Kültür Gezileri</a>
+                                    }
+                                </h3>
+                                <p>"Tarihi ve kültürel mekanları keşfedin, geçmişin izlerini adım adım takip ederek yeni bir bakış açısı kazanın."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-music"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Müzik &amp; Festival</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Müzik &amp; Festival</a>
+                                    }
+                                </h3>
+                                <p>"Canlı performanslarla dolu müzik festivallerine katılın ve müzikle ruhunuzu özgür bırakın."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Sanatsal Faliyetler</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Sanatsal Faliyetler</a>
+                                    }
+                                </h3>
+                                <p>"Yaratıcılığınızı keşfedin ve sanatı hayatınıza dahil edin. Resimden seramiğe kadar farklı sanat dallarında pratik yapın."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-futbol"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Spor Etkinlikleri</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Spor Etkinlikleri</a>
+                                    }
+                                </h3>
+                                <p>"Farklı spor dallarına adım atın, takım oyunları ve bireysel aktivitelerle sağlıklı yaşamı kutlayın."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-robot"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Teknolojik Etkinlikler</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Teknolojik Etkinlikler</a>
+                                    }
+                                </h3>
+                                <p>"Geleceği keşfedin! Teknolojinin sunduğu imkanlarla interaktif etkinlikler ve yenilikçi deneyimlere katılın."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-mountain"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Tırmanış</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Tırmanış</a>
+                                    }
+                                </h3>
+                                <p>"Zirveye ulaşın, engelleri aşın! Dağcılıkla doğayla mücadele edin ve yüksek irtifada heyecanı hissedin."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-utensils"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Yemek Yapma Etkinliği</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Yemek Yapma Etkinliği</a>
+                                    }
+                                </h3>
+                                <p>"Lezzetli yemekler yaparken yeni tarifler öğrenin. Mutfakta eğlenceli bir deneyim yaşayın!"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 text-center animate-box">
+                        <div class="services">
+                            <span class="icon">
+                                <i class="fas fa-spa"></i>
+                            </span>
+                            <div class="desc">
+                                <h3>
+                                    @if (Session["KullaniciAdi"] != null)
+                                    {
+                                        <a class="btn btn-primary btn-lg" href="#Etkinliklerim">Yoga Etkinliği</a>
+                                    }
+                                    else
+                                    {
+                                        TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                        <a class="btn btn-primary btn-lg" href="/Login/Index" onclick="alert('Lütfen önce giriş yapın!');">Yoga Etkinliği</a>
+                                    }
+                                </h3>
+                                <p>"Bedensel ve zihinsel dengeyi bulmak için yoga ile rahatlayın, esnekliğinizi geliştirin ve huzuru bulun."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="fh5co-counter" class="fh5co-counters" style="background-image: url(images/img_bg_4.jpg);" data-stellar-background-ratio="0.5">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 text-center animate-box">
+                                <span class="icon"><i class="fa fa-user-friends"></i></span>
+                                <span class="fh5co-counter js-counter" data-from="0" data-to="5234" data-speed="5000" data-refresh-interval="50"></span>
+                                <span class="fh5co-counter-label">Takipçiler</span>
+                            </div>
+                            <div class="col-md-3 col-sm-6 text-center animate-box">
+                                <span class="icon"><i class="fa fa-users"></i></span>
+                                <span class="fh5co-counter js-counter" data-from="0" data-to="3700" data-speed="5000" data-refresh-interval="50"></span>
+                                <span class="fh5co-counter-label">Katılımcılar</span>
+                            </div>
+                            <div class="col-md-3 col-sm-6 text-center animate-box">
+                                <span class="icon"><i class="fa fa-calendar-check"></i></span>
+                                <span class="fh5co-counter js-counter" data-from="0" data-to="123" data-speed="5000" data-refresh-interval="50"></span>
+                                <span class="fh5co-counter-label">Gerçekleştirilen Etkinlikler</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="fh5co-course">
+            <div class="container">
+                <div class="row animate-box">
+                    <div id="Etkinliklerim" class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                        <h2>Etkinliklerimiz</h2>
+                        <p style="font-size: 1.2rem; color: #6c757d; margin-top: 10px;">Farklı ilgi alanlarına hitap eden etkinliklerimizle her anı değerli kılın. Katılmak istediğiniz etkinlikleri keşfedin ve yeni deneyimlere adım atın.</p>
+                    </div>
+                </div>
+
+                <!-- Etkinlikler Listesi -->
+                <div class="row" id="event-list">
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/bisikletturları.jpg');"></a>
+                            <div class="desc">
+                                <h3>Bisiklet Turları</h3>
+                                <p>"Rüzgarın yüzünüzü okşadığı ve doğal güzelliklerin içinde kaybolduğunuz bisiklet turlarıyla adım adım keşfe çıkın."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Bisiklet Turları" })">Etkinliğe Katıl</a> }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/doğayürüyüşü.jpg');"></a>
+                            <div class="desc">
+                                <h3>Doğa Yürüyüşü</h3>
+                                <p>"Şehir hayatından uzaklaşıp doğanın sunduğu huzuru keşfetmek için düzenlediğimiz doğa yürüyüşleri ile zihninizi arındırın."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Doğa Yürüyüşü" })">Etkinliğe Katıl</a> }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Etkinlik 3 -->
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/kışsporları.jpg');"></a>
+                            <div class="desc">
+                                <h3>Kış Sporları</h3>
+                                <p>"Karla kaplı dağlar, kayak pistleri ve kışın büyülü atmosferiyle kış sporları etkinliklerimizde eğlenceyi ve macerayı bir arada yaşayın."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Kış Sporları" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/koşuturları.jpg');"></a>
+                            <div class="desc">
+                                <h3>Koşu Turları</h3>
+                                <p>"Farklı parkurlarda koşarak hem sağlığınızı geliştirin hem de doğanın içinde dinç bir zihinle koşmanın keyfini çıkarın."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Koşu Turları" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/kültüreletkinlikler.jpg');"></a>
+                            <div class="desc">
+                                <h3>Kültür Gezileri</h3>
+                                <p>"Geçmişin izlerini günümüzde keşfedin! Kültürel gezilerimizle tarihi yerleri ve özgün kültürleri yakından tanıyın."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Kültürel Etkinlikler" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/müziketkinlikleri.jpg'); "></a>
+                            <div class="desc">
+                                <h3>Müzik &amp; Festival</h3>
+                                <p>"Birbirinden keyifli müzik etkinlikleri ve festivallerle ruhunuzu dinlendirin. Müzik her zaman en iyi ilaçtır. Bu sayede kendinizi yenilersiniz."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Müzik Etkinlikleri" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/sanatetkinlikleri.jpg');"></a>
+                            <div class="desc">
+                                <h3>Sanatsal Faaliyetler</h3>
+                                <p>"Yaratıcılığınızı keşfedin! Resim, heykel, fotoğraf ve diğer sanatsal faaliyetlerde kendinizi ifade etmenin yollarını bulun."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Sanat Etkinlikleri" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/sporetkinlikleri.jpg');"></a>
+                            <div class="desc">
+                                <h3>Spor Etkinlikleri</h3>
+                                <p>"Farklı spor dallarında hem eğlenin hem de sağlıklı bir yaşam tarzını benimseyin. Futbol, basketbol, voleybol ve daha fazlası!"</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Spor Etkinlikleri" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Etkinlik 9 -->
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/teknolojiketkinlikler.jpg'); "></a>
+                            <div class="desc">
+                                <h3>Teknoloji Etkinlikleri</h3>
+                                <p>"Yeni teknolojiler, yenilikçi çözümler ve gelişen dijital dünyayla ilgili ilham verici etkinliklerimizde yerinizi alın. Yeni insanlar tanıyın."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Teknolojik Etkinlikler" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/tırmanışetkinlikleri.jpg');"></a>
+                            <div class="desc">
+                                <h3>Tırmanış</h3>
+                                <p>"Adrenalin dolu anlar ve doğa ile iç içe bir deneyim için tırmanış etkinliklerimize katılın. Zorlukları aşmak için doğru yerdesiniz."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Tırmanış Etkinlikleri" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/yemeketkinlikleri.jpg');"></a>
+                            <div class="desc">
+                                <h3>Yemek Yapma Etkinliği</h3>
+                                <p>"Ağzınızı sulandıracak tarifler ve keyifli yemek yapma etkinliklerimizde yeni lezzetler keşfedin, mutfağınızı şenlendirin."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Yemek Etkinlikleri" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Etkinlik 12 -->
+                    <div class="col-md-6 animate-box">
+                        <div class="course">
+                            <a href="#" class="course-img" style="background-image: url('../Pictures/yogaetkinlikleri.jpg');"></a>
+                            <div class="desc">
+                                <h3>Yoga Etkinliği</h3>
+                                <p>"Vücudunuzu rahatlatın ve zihninizi sakinleştirin. Yoga etkinliklerimizle dengeyi ve huzuru yeniden bulun. Yeni arkadaşlar edinin."</p>
+                                @if (Session["KullaniciAdi"] != null)
+                                {
+                                    <a class="btn btn-primary btn-lg" href="@Url.Action("EtkinlikKategori", "Etkinlikler", new { kategori = "Yoga Etkinlikleri" })">Etkinliğe Katıl</a>
+                                }
+                                else
+                                {
+                                    TempData["HataMesaji"] = "Bu işlemi gerçekleştirebilmek için giriş yapmanız gerekiyor.";
+                                    <span><a href="/Login/Index" class="btn btn-primary btn-sm btn-course">Etkinliğe Katıl</a></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sayfa Navigasyon -->
+                <div class="pagination-container">
+                    <button onclick="prevPage()">Önceki</button>
+                    <button onclick="nextPage()">Sonraki</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="fh5co-blog">
+            <div class="container">
+                @RenderSection("EnYakinEtkinlikler", required: false)
+            </div>
+        </div>
+
+        <div id="fh5co-pricing" class="fh5co-bg-section">
+            <div class="container">
+                <div class="row animate-box">
+                    <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                        <h2>Tüm Etkinlikler</h2>
+                    </div>
+                </div>
+                @RenderSection("TumEtkinlikler", required: false)
+            </div>
+            <div id="map" style="display: none;"></div>
+        </div>
+
+
+        <div id="fh5co-gallery" class="fh5co-bg-section">
+            <div class="row text-center">
+                <h2><span>Instagram Gallery</span></h2>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-padded">
+                    <a href="#" class="gallery" style="background-image: url('../Pictures/doğayürüyüşü.jpg');"></a>
+                </div>
+                <div class="col-md-3 col-padded">
+                    <a href="#" class="gallery" style="background-image: url('../Pictures/kültüreletkinlikler.jpg');"></a>
+                </div>
+                <div class="col-md-3 col-padded">
+                    <a href="#" class="gallery" style="background-image: url('../Pictures/sanatetkinlikleri.jpg');"></a>
+                </div>
+                <div class="col-md-3 col-padded">
+                    <a href="#" class="gallery" style="background-image: url('../Pictures/yogaetkinlikleri.jpg');"></a>
+                </div>
+            </div>
+        </div>
+
+        <footer id="fh5co-footer" role="contentinfo" style="background-image: url(images/img_bg_4.jpg);">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row row-pb-md">
+                    <div id="hakkimizda" class="col-md-4 fh5co-widget">
+                        <h3>Etkinlik Planlama Platformu</h3>
+                        <p>İlgi alanlarınıza uygun etkinlikleri keşfedin ve kolayca planlayın.</p>
+                    </div>
+                    <div class="col-md-4 fh5co-widget">
+                        <h3>Hızlı Erişim</h3>
+                        <ul class="fh5co-footer-links">
+                            <li><a href="#">Ana Sayfa</a></li>
+                            <li><a href="#">Etkinlikler</a></li>
+                            <li><a href="#">İletişim</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="iletisim" class="col-md-4 fh5co-widget">
+                        <h3>İletişim</h3>
+                        <p>
+                            <strong>E-posta:</strong> umutkahraman1344@gmail.com<br>
+                            <strong>Telefon:</strong> +90 545 814 7710
+                        </p>
+                    </div>
+
+                </div>
+                <div class="row text-center">
+                    <p>
+                        <small class="block">&copy; 2024 YAZLAB ~~ TÜM HAKLARI SAKLIDIR</small>
+                        <small class="block">Olusturan<a href="https://www.linkedin.com/in/umut-kahraman-766696253?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Umut Kahraman</a></small>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+    </div>
+
+    <!-- jQuery -->
+    <script src="~/education/js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="~/education/js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/education/js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="~/education/js/jquery.waypoints.min.js"></script>
+    <!-- Stellar Parallax -->
+    <script src="~/education/js/jquery.stellar.min.js"></script>
+    <!-- Carousel -->
+    <script src="~/education/js/owl.carousel.min.js"></script>
+    <!-- Flexslider -->
+    <script src="~/education/js/jquery.flexslider-min.js"></script>
+    <!-- countTo -->
+    <script src="~/education/js/jquery.countTo.js"></script>
+    <!-- Magnific Popup -->
+    <script src="~/education/js/jquery.magnific-popup.min.js"></script>
+    <script src="js/magnific-popup-options.js"></script>
+    <!-- Count Down -->
+    <script src="~/education/js/simplyCountdown.js"></script>
+    <!-- Main -->
+    <script src="~/education/js/main.js"></script>
+    <script>
+        var d = new Date(new Date().getTime() + 1000 * 120 * 120 * 2000);
+
+        // default example
+        simplyCountdown('.simply-countdown-one', {
+            year: d.getFullYear(),
+            month: d.getMonth() + 1,
+            day: d.getDate()
+        });
+
+        //jQuery example
+        $('#simply-countdown-losange').simplyCountdown({
+            year: d.getFullYear(),
+            month: d.getMonth() + 1,
+            day: d.getDate(),
+            enableUtc: false
+        });</script>
+
+</body>
+</html>
+

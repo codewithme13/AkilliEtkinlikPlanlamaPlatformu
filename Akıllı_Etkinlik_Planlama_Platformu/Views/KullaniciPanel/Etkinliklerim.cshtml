@@ -1,0 +1,34 @@
+﻿@using Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar
+@model List<Etkinlikler>
+@{
+    ViewBag.Title = "Etkinliklerim";
+    Layout = "~/Views/Shared/_KullanicilarPanelLayout.cshtml";
+}
+<br />
+<h2>Etkinlik Geçmişim</h2>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>Etkinlik Adı</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>Saat</th>
+        <th>Etkinlik Süresi</th>
+        <th>Konum</th>
+        <th>Kategori</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+    <tr>
+        <td>@x.EtkinlikAdi</td>
+        <td>@x.Aciklama</td>
+        <td>@Convert.ToDateTime(x.Tarih).ToString("dd/MM/yyyy")</td>
+        <td>@x.Saat</td>
+        <td>@x.EtkinlikSuresi</td>
+        <td>@x.Konum</td>
+        <td>@x.Kategori</td>
+    </tr>
+    }
+</table>
+
+

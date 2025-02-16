@@ -1,0 +1,62 @@
+﻿@using Akıllı_Etkinlik_Planlama_Platformu.Models.Siniflar;
+@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<Etkinlikler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+@using (Html.BeginForm("Index", "Etkinlikler", FormMethod.Get))
+{ 
+    <p>
+        Urun Adı: @Html.TextBox("p")
+        <input type="submit" value="Ara"/>
+    </p>
+}
+<br />
+
+<table class="table table-bordered" style="margin-top:20px;">
+    <tr>
+        <th>Etkinlik Adı</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>Saat</th>
+        <th>Etkinlik Süresi</th>
+        <th>Konum</th>
+        <th>Kategori</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var k in Model)
+    {
+        <tr>
+            <td>
+                @k.EtkinlikAdi
+            </td>
+            <td>
+                @k.Aciklama
+            </td>
+            <td>
+                @k.Tarih.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                @k.Saat.ToString(@"hh\:mm")
+            </td> <!-- Saati saat:dakika formatında göster -->
+            <td>
+                @k.EtkinlikSuresi.ToString(@"hh\:mm")
+            </td>
+            <td>
+                @k.Konum
+            </td>
+            <td>
+                @k.Kategori
+            </td>
+            <td><a href="/Etkinlikler/EtkinlikSil/@k.ID" class="btn btn-danger">Sİl</a></td>
+            <td><a href="/Etkinlikler/EtkinlikGetir/@k.ID" class="btn btn-success">Güncelle</a></td>
+
+        </tr>
+        }
+</table>
+<div class="pager"> @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { sayfa = page }), PagedListRenderOptions.ClassicPlusFirstAndLast) </div>
+<a href="/Etkinlikler/EtkinlikEkle" class="btn btn-primary">Etkinlik Ekle</a>

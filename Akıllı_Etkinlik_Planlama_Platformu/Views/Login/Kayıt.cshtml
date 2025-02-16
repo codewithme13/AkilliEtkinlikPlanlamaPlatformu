@@ -1,0 +1,235 @@
+﻿
+@{
+    Layout = null;
+}
+<div class="login-form login-form-left">
+    <div class="agile-row">
+        <h3>Kayıt Formu</h3>
+        <div class="login-agileits-top">
+            @if (ViewBag.Hata != null)
+            {
+                <p style="color:red;">@ViewBag.Hata</p>
+            }
+            @if (ViewBag.Basari != null)
+            {
+                <p style="color:green;">@ViewBag.Basari</p>
+            }
+
+            <form method="post" action="@Url.Action("Kayıt", "Login")" enctype="multipart/form-data">
+                <input type="text" class="name" name="Ad" placeholder="Adınız" required="" />
+                <input type="text" class="name" name="Soyad" placeholder="Soyadınız" required="" />
+                <input type="text" class="phone" name="TelefonNumarasi" placeholder="Telefon Numarası" required="" />
+                <input type="email" class="email" name="Eposta" placeholder="E-mail" required="" />
+                <input type="text" class="name" name="KullaniciAdi" placeholder="Kullanıcı Adınız" required="" />
+                <input type="password" class="password" name="Sifre" placeholder="Şifreniz" required="" />
+
+                <!-- Profil Fotoğrafı Yükleme Alanı -->
+                <div class="file-upload">
+                    <label for="ProfileImage">Profil Fotoğrafı Seçin:</label>
+                    <input type="file" name="ProfileImage" id="ProfileImage" accept="image/*" />
+                </div>
+                <!-- İlgi Alanları -->
+                <div class="interest-selection">
+                    <label>İlgi Alanlarınızı Seçin:</label>
+                    <div class="selected-interests">
+                        <!-- Seçilen ilgi alanları buraya gelecek -->
+                    </div>
+                    <select id="interest-dropdown" name="IlgiAlanlari" multiple size="10" class="listbox">
+                        <option value="Kış Sporları">Kış Sporları</option>
+                        <option value="Koşu Turları">Koşu Turları</option>
+                        <option value="Kültürel Etkinlikler">Kültürel Etkinlikler</option>
+                        <option value="Müzik Etkinlikleri">Müzik Etkinlikleri</option>
+                        <option value="Spor Etkinlikleri">Spor Etkinlikleri</option>
+                        <option value="Teknoloji Etkinlikleri">Teknoloji Etkinlikleri</option>
+                        <option value="Tırmanış Etkinlikleri">Tırmanış Etkinlikleri</option>
+                        <option value="Yemek Etkinlikleri">Yemek Etkinlikleri</option>
+                        <option value="Yoga Etkinlikleri">Yoga Etkinlikleri</option>
+                        <option value="Doğa Yürüyüşü">Doğa Yürüyüşü</option>
+                        <option value="Bisiklet Turları">Bisiklet Turları</option>
+                        <option value="Sanat Etkinlikleri">Sanat Etkinlikleri</option>
+                    </select>
+                </div>
+
+                <div class="login-check">
+                    <label class="checkbox">
+                        <input type="checkbox" name="checkbox" checked="" />
+                        <i> </i> Kuralları okudum ve kabul ediyorum.
+                        <a href="#">Kısıtlamalar & Kurallar</a>
+                    </label>
+                </div>
+                <input type="submit" value="Kaydol">
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+    .selected-interests {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        min-height: 50px;
+    }
+
+        .selected-interests span {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 14px;
+        }
+
+    .listbox {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #333;
+        background-color: #f9f9f9;
+    }
+</style>
+
+<script>const interestDropdown = document.getElementById("interest-dropdown");
+    const selectedInterests = document.querySelector(".selected-interests");
+
+    interestDropdown.addEventListener("change", () => {
+        selectedInterests.innerHTML = ""; // Önceki seçimleri temizle
+        Array.from(interestDropdown.selectedOptions).forEach(option => {
+            const span = document.createElement("span");
+            span.textContent = option.textContent;
+            selectedInterests.appendChild(span);
+        });
+    });</script>
+<style>
+    /* Genel Sayfa Ayarları */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    /* Kayıt Formu */
+    .login-form {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
+    }
+
+        .login-form h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+    /* Form Başlık ve Hata/Başarı Mesajları */
+    .login-agileits-top {
+        margin-top: 20px;
+    }
+
+        .login-agileits-top p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Hata ve Başarı Mesajları */
+        .login-agileits-top p {
+            color: #ff0000; /* Hata mesajı için kırmızı */
+        }
+
+            .login-agileits-top p.success {
+                color: #28a745; /* Başarı mesajı için yeşil */
+            }
+
+    /* Form Alanları */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+        /* Form Alanları odaklanma efekti */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    /* Profil Fotoğrafı Yükleme Alanı */
+    .file-upload {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+        .file-upload label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .file-upload input[type="file"] {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+    /* Checkbox ve Link */
+    .login-check {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .checkbox {
+        font-size: 14px;
+        color: #555;
+    }
+
+        .checkbox input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    /* Submit Butonu */
+    input[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+</style>
